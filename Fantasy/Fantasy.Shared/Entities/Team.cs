@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Fantasy.Shared.Entities;
 
-public class Country
+public class Team
 {
     public int Id { get; set; }
 
@@ -15,7 +15,9 @@ public class Country
     [Required]
     public string Name { get; set; } = null!;
 
-    public ICollection<Team>? Teams { get; set; }
+    public string? Image { get; set; }
 
-    public int TeamsCount => Teams == null ? 0 : Teams.Count;
+    public Country Country { get; set; } = null!;
+
+    public int CountryId { get; set; }
 }
