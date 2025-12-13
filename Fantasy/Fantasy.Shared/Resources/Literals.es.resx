@@ -186,4 +186,13 @@
   <data name="RecordUpdatedOk" xml:space="preserve">
     <value>Registro actualizado con éxito</value>
   </data>
+  <data name="ERR001" xml:space="preserve">
+    <value>Registro no encontrado</value>
+  </data>
+  <data name="ERR002" xml:space="preserve">
+    <value>No se puede borrar, porque tiene registros relacionados</value>
+  </data>
+  <data name="ERR003" xml:space="preserve">
+    <value>Ya existe el registro que estás intentando crear</value>
+  </data>
 </root>
