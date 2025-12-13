@@ -120,17 +120,32 @@
   <data name="About" xml:space="preserve">
     <value>Acerca de</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Confirmación</value>
+  </data>
   <data name="Countries" xml:space="preserve">
     <value>Países</value>
   </data>
   <data name="Country" xml:space="preserve">
     <value>País</value>
   </data>
+  <data name="Create" xml:space="preserve">
+    <value>Crear</value>
+  </data>
   <data name="Delete" xml:space="preserve">
     <value>Borrar</value>
   </data>
+  <data name="DeleteConfirm" xml:space="preserve">
+    <value>¿Está seguro de borrar el {0}: {1}?</value>
+  </data>
   <data name="Edit" xml:space="preserve">
     <value>Editar</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
   </data>
   <data name="Home" xml:space="preserve">
     <value>Inicio</value>
@@ -138,16 +153,37 @@
   <data name="Image" xml:space="preserve">
     <value>Imagen</value>
   </data>
+  <data name="LeaveAndLoseChanges" xml:space="preserve">
+    <value>¿Deseas abandonar la página y perder los cambios?</value>
+  </data>
   <data name="New" xml:space="preserve">
     <value>Nuevo</value>
   </data>
   <data name="NoRecords" xml:space="preserve">
     <value>No hay registros para mostrar</value>
   </data>
+  <data name="RecordDeletedOk" xml:space="preserve">
+    <value>Registro borrado con éxito</value>
+  </data>
+  <data name="RecordCreatedOk" xml:space="preserve">
+    <value>Registro guardado con éxito</value>
+  </data>
+  <data name="Return" xml:space="preserve">
+    <value>Regresar</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
   <data name="Subtitle" xml:space="preserve">
     <value>Aplicación de pronósticos futboleros</value>
   </data>
   <data name="Title" xml:space="preserve">
     <value>Apuestas futboleras</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Sí</value>
+  </data>
+  <data name="RecordUpdatedOk" xml:space="preserve">
+    <value>Registro actualizado con éxito</value>
   </data>
 </root>

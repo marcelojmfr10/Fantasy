@@ -22,10 +22,10 @@ namespace Fantasy.Backend.Controllers
             return Ok(await _context.Countries.ToListAsync());
         }
 
-        [HttpGet("{id}:int")]
+        [HttpGet("{id:int}")]
         public async Task<IActionResult> GetAsync(int id)
         {
-            var country = await _context.Countries.FindAsync(id);
+            var country = await _context.Countries.FirstOrDefaultAsync(x => x.Id == id);
             if(country is null)
             {
                 return NotFound();
@@ -58,7 +58,7 @@ namespace Fantasy.Backend.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}:int")]
+        [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
             var country = await _context.Countries.FindAsync(id);
