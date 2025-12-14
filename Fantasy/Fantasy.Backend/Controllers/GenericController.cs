@@ -16,10 +16,10 @@ public class GenericController<T> : Controller where T: class
     [HttpGet]
     public virtual async Task<IActionResult> GetAsync()
     {
-        var action = await _unitOfWork.GetAsync();
-        if (action.WasSuccess)
+        var response = await _unitOfWork.GetAsync();
+        if (response.WasSuccess)
         {
-            return Ok(action.Result);
+            return Ok(response.Result);
         }
         return BadRequest();
     }
@@ -27,10 +27,10 @@ public class GenericController<T> : Controller where T: class
     [HttpGet("{id}")]
     public virtual async Task<IActionResult> GetAsync(int id)
     {
-        var action = await _unitOfWork.GetAsync(id);
-        if (action.WasSuccess)
+        var response = await _unitOfWork.GetAsync(id);
+        if (response.WasSuccess)
         {
-            return Ok(action.Result);
+            return Ok(response.Result);
         }
         return NotFound();
     }
@@ -38,33 +38,33 @@ public class GenericController<T> : Controller where T: class
     [HttpPost]
     public virtual async Task<IActionResult> PostAsync(T model)
     {
-        var action = await _unitOfWork.AddAsync(model);
-        if (action.WasSuccess)
+        var response = await _unitOfWork.AddAsync(model);
+        if (response.WasSuccess)
         {
-            return Ok(action.Result);
+            return Ok(response.Result);
         }
-        return BadRequest(action.Message);
+        return BadRequest(response.Message);
     }
 
     [HttpPut]
     public virtual async Task<IActionResult> PutAsync(T model)
     {
-        var action = await _unitOfWork.UpdateAsync(model);
-        if (action.WasSuccess)
+        var response = await _unitOfWork.UpdateAsync(model);
+        if (response.WasSuccess)
         {
-            return Ok(action.Result);
+            return Ok(response.Result);
         }
-        return BadRequest(action.Message);
+        return BadRequest(response.Message);
     }
 
     [HttpDelete("{id}")]
     public virtual async Task<IActionResult> DeleteAsync(int id)
     {
-        var action = await _unitOfWork.DeleteAsync(id);
-        if (action.WasSuccess)
+        var response = await _unitOfWork.DeleteAsync(id);
+        if (response.WasSuccess)
         {
             return NoContent();
         }
-        return BadRequest(action.Message);
+        return BadRequest(response.Message);
     }
 }
