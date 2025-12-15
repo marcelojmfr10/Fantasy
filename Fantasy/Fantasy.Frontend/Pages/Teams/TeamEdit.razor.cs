@@ -1,16 +1,17 @@
 using CurrieTechnologies.Razor.SweetAlert2;
 using Fantasy.Frontend.Repositories;
+using Fantasy.Shared.DTOs;
 using Fantasy.Shared.Entities;
 using Fantasy.Shared.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 
-namespace Fantasy.Frontend.Pages.Countries;
+namespace Fantasy.Frontend.Pages.Teams;
 
-public partial class CountryEdit
+public partial class TeamEdit
 {
-    private Country? country;
-    private CountryForm? countryForm;
+    private TeamDTO? teamDTO;
+    private TeamForm? teamForm;
 
     [Inject] private NavigationManager NavigationManager { get; set; } = null!;
     [Inject] private IRepository Repository { get; set; } = null!;
@@ -21,13 +22,13 @@ public partial class CountryEdit
 
     protected override async Task OnInitializedAsync()
     {
-        var responseHttp = await Repository.GetAsync<Country>($"api/countries/{Id}");
+        var responseHttp = await Repository.GetAsync<Team>($"api/teams/{Id}");
 
         if (responseHttp.Error)
         {
             if (responseHttp.HttpResponseMessage.StatusCode == System.Net.HttpStatusCode.NotFound)
             {
-                NavigationManager.NavigateTo("countries");
+                NavigationManager.NavigateTo("teams");
             }
             else
             {
@@ -37,18 +38,25 @@ public partial class CountryEdit
         }
         else
         {
-            country = responseHttp.Response;
+            var team = responseHttp.Response;
+            teamDTO = new TeamDTO()
+            {
+                Id = team!.Id,
+                Name = team!.Name,
+                Image = team.Image,
+                CountryId = team.CountryId
+            };
         }
     }
 
     private async Task EditAsync()
     {
-        var responseHttp = await Repository.PutAsync("api/countries", country);
+        var responseHttp = await Repository.PutAsync("api/teams/full", teamDTO);
 
         if (responseHttp.Error)
         {
-            var messageError = await responseHttp.GetErrorMessageAsync();
-            await SweetAlertService.FireAsync(Localizer["Error"], Localizer[messageError!], SweetAlertIcon.Error);
+            var message = await responseHttp.GetErrorMessageAsync();
+            await SweetAlertService.FireAsync(Localizer["Error"], Localizer[message!], SweetAlertIcon.Error);
             return;
         }
 
@@ -65,7 +73,7 @@ public partial class CountryEdit
 
     private void Return()
     {
-        countryForm!.FormPostedSuccessfully = true;
-        NavigationManager.NavigateTo("countries");
+        teamForm!.FormPostedSuccessfully = true;
+        NavigationManager.NavigateTo("teams");
     }
 }
