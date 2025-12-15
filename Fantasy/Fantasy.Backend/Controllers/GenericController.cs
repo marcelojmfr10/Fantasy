@@ -1,4 +1,5 @@
 ﻿using Fantasy.Backend.UnitsOfWork.Interfaces;
+using Fantasy.Shared.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Fantasy.Backend.Controllers;
@@ -66,5 +67,27 @@ public class GenericController<T> : Controller where T: class
             return NoContent();
         }
         return BadRequest(response.Message);
+    }
+
+    [HttpGet("paginated")]
+    public virtual async Task<IActionResult> GetAsync([FromQuery] PaginationDTO pagination)
+    {
+        var response = await _unitOfWork.GetAsync(pagination);
+        if (response.WasSuccess)
+        {
+            return Ok(response.Result);
+        }
+        return BadRequest();
+    }
+
+    [HttpGet("totalRecords")]
+    public virtual async Task<IActionResult> GetTotalRecordsAsync()
+    {
+        var response = await _unitOfWork.GetTotalRecordsAsync();
+        if (response.WasSuccess)
+        {
+            return Ok(response.Result);
+        }
+        return BadRequest();
     }
 }
