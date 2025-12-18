@@ -13,6 +13,7 @@ namespace Fantasy.Frontend.Pages.Teams;
 public partial class TeamForm
 {
     private EditContext editContext = null!;
+    private Country selectedCountry = new();
     private List<Country>? countries;
     private string? imageUrl;
 
@@ -90,5 +91,24 @@ public partial class TeamForm
         }
 
         context.PreventNavigation();
+    }
+
+    private async Task<IEnumerable<Country>> SearchCountry(string searchText, CancellationToken cancellationToken)
+    {
+        await Task.Delay(5);
+        if (string.IsNullOrWhiteSpace(searchText))
+        {
+            return countries!;
+        }
+
+        return countries!
+            .Where(x => x.Name.Contains(searchText, StringComparison.InvariantCultureIgnoreCase))
+            .ToList();
+    }
+
+    private void CountryChanged(Country country)
+    {
+        selectedCountry = country;
+        TeamDTO.CountryId = country.Id;
     }
 }

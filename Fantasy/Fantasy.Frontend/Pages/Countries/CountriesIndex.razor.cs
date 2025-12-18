@@ -24,13 +24,13 @@ public partial class CountriesIndex
     [Inject] private IRepository Repository { get; set; } = null!;
     [Inject] private IDialogService DialogService { get; set; } = null!;
     [Inject] private NavigationManager NavigationManager { get; set; } = null!;
-    [Inject] private SweetAlertService SweetAlertService { get; set; } = null!;
+    [Inject] private ISnackbar Snackbar { get; set; } = null!;
 
     [Parameter, SupplyParameterFromQuery] public string Filter { get; set; } = string.Empty;
 
     protected override async Task OnInitializedAsync()
     {
-        await LoadAsync();
+        await LoadTotalRecordsAsync();
     }
 
     private async Task LoadTotalRecordsAsync()
@@ -47,7 +47,7 @@ public partial class CountriesIndex
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
-            await SweetAlertService.FireAsync(Localizer["Error", message!, SweetAlertIcon.Error]);
+            Snackbar.Add(Localizer[message!], Severity.Error);
             return;
         }
 
@@ -70,7 +70,7 @@ public partial class CountriesIndex
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
-            await SweetAlertService.FireAsync(Localizer["Error", message!, SweetAlertIcon.Error]);
+            Snackbar.Add(Localizer[message!], Severity.Error);
             return new TableData<Country> { Items = [], TotalItems = 0 };
         }
         if (responseHttp.Response == null)
@@ -116,18 +116,6 @@ public partial class CountriesIndex
         }
     }
 
-    private async Task LoadAsync()
-    {
-        var responseHttp = await Repository.GetAsync<List<Country>>("api/countries");
-        if (responseHttp.Error)
-        {
-            var message = await responseHttp.GetErrorMessageAsync();
-            await SweetAlertService.FireAsync(Localizer["Error", message!, SweetAlertIcon.Error]);
-            return;
-        }
-        Countries = responseHttp.Response!;
-    }
-
     private async Task DeleteAsync(Country country)
     {
         var parameters = new DialogParameters
@@ -151,22 +139,15 @@ public partial class CountriesIndex
             }
             else
             {
-                var messageError = await responseHttp.GetErrorMessageAsync();
-                await SweetAlertService.FireAsync(Localizer["Error"], Localizer[messageError!], SweetAlertIcon.Error);
+                var message = await responseHttp.GetErrorMessageAsync();
+                Snackbar.Add(Localizer[message!], Severity.Error);
             }
 
             return;
         }
 
-        await LoadAsync();
-        var toast = SweetAlertService.Mixin(new SweetAlertOptions
-        {
-            Toast = true,
-            Position = SweetAlertPosition.BottomEnd,
-            ShowConfirmButton = true,
-            Timer = 3000,
-            ConfirmButtonText = Localizer["Yes"]
-        });
-        toast.FireAsync(icon: SweetAlertIcon.Success, message: Localizer["RecordDeletedOk"]);
+        await LoadTotalRecordsAsync();
+        await table.ReloadServerData();
+        Snackbar.Add(Localizer["RecordDeletedOk"], Severity.Success);
     }
 }
