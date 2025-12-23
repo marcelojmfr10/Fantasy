@@ -1,10 +1,13 @@
-﻿using Fantasy.Shared.Entities;
+﻿using Fantasy.Shared.DTOs;
+using Fantasy.Shared.Entities;
 using Microsoft.AspNetCore.Identity;
 
 namespace Fantasy.Backend.UnitsOfWork.Interfaces;
 
 public interface IUsersUnitOfWork
 {
+    Task<SignInResult> LoginAsync(LoginDTO model);
+    Task LogoutAsync();
     Task<User> GetUserAsync(string email);
     Task<IdentityResult> AddUserAsync(User user, string password);
     Task CheckRoleAsync(string roleName);
