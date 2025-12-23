@@ -1,10 +1,7 @@
-﻿using Fantasy.Backend.Data;
-using Fantasy.Backend.UnitsOfWork.Interfaces;
+﻿using Fantasy.Backend.UnitsOfWork.Interfaces;
 using Fantasy.Shared.DTOs;
 using Fantasy.Shared.Entities;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Fantasy.Backend.Controllers
 {

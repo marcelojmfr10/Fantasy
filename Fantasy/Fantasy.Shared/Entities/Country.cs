@@ -1,10 +1,5 @@
 ﻿using Fantasy.Shared.Resources;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Fantasy.Shared.Entities;
 
@@ -20,4 +15,8 @@ public class Country
     public ICollection<Team>? Teams { get; set; }
 
     public int TeamsCount => Teams == null ? 0 : Teams.Count;
+
+    public ICollection<User>? Users { get; set; }
+
+    public int UsersCount => Users == null ? 0 : Users.Count;
 }

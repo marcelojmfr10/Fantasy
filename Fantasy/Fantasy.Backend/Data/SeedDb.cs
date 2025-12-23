@@ -1,5 +1,4 @@
-﻿
-using Fantasy.Backend.Helpers;
+﻿using Fantasy.Backend.Helpers;
 using Fantasy.Shared.Entities;
 using Microsoft.EntityFrameworkCore;
 

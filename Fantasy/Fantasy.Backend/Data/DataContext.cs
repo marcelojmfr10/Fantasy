@@ -1,9 +1,10 @@
 ﻿using Fantasy.Shared.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Fantasy.Backend.Data
 {
-    public class DataContext : DbContext
+    public class DataContext : IdentityDbContext<User>
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
@@ -15,6 +16,7 @@ namespace Fantasy.Backend.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Country>().HasIndex(x => x.Name).IsUnique();
             modelBuilder.Entity<Team>().HasIndex(x => new { x.CountryId, x.Name}).IsUnique(); // índice compuesto
             DisableCascadingDelete(modelBuilder);

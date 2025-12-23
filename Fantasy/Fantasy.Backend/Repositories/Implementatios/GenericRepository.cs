@@ -5,162 +5,161 @@ using Fantasy.Shared.DTOs;
 using Fantasy.Shared.Responses;
 using Microsoft.EntityFrameworkCore;
 
-namespace Fantasy.Backend.Repositories.Implementatios
+namespace Fantasy.Backend.Repositories.Implementatios;
+
+public class GenericRepository<T> : IGenericRepository<T> where T : class
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : class
+    private readonly DataContext _context;
+    private readonly DbSet<T> _entity;
+
+    public GenericRepository(DataContext context)
     {
-        private readonly DataContext _context;
-        private readonly DbSet<T> _entity;
+        _context = context;
+        _entity = context.Set<T>();
+    }
 
-        public GenericRepository(DataContext context)
+    public virtual async Task<ActionResponse<T>> AddAsync(T entity)
+    {
+        _context.Add(entity);
+        try
         {
-            _context = context;
-            _entity = context.Set<T>();
-        }
-
-        public virtual async Task<ActionResponse<T>> AddAsync(T entity)
-        {
-            _context.Add(entity);
-            try
-            {
-                await _context.SaveChangesAsync();
-                return new ActionResponse<T>
-                {
-                    WasSuccess = true,
-                    Result = entity
-                };
-            }
-            catch (DbUpdateException)
-            {
-                return DbUpdateExceptionActionResponse();
-            }
-            catch (Exception exception)
-            {
-                return ExceptionActionResponse(exception);
-            }
-        }
-
-        public virtual async Task<ActionResponse<T>> DeleteAsync(int id)
-        {
-            var row = await _entity.FindAsync(id);
-            if (row == null)
-            {
-                return new ActionResponse<T>
-                {
-                    WasSuccess = false,
-                    Message = "ERR001"
-                };
-            }
-
-            _entity.Remove(row);
-            try
-            {
-                await _context.SaveChangesAsync();
-                return new ActionResponse<T>
-                {
-                    WasSuccess = true
-                };
-            }
-            catch
-            {
-                return new ActionResponse<T>
-                {
-                    WasSuccess = false,
-                    Message = "ERR002"
-                };
-            }
-        }
-
-        public virtual async Task<ActionResponse<T>> GetAsync(int id)
-        {
-            var row = await _entity.FindAsync(id);
-            if(row == null)
-            {
-                return new ActionResponse<T>
-                {
-                    WasSuccess = false,
-                    Message = "ERR001"
-                };
-            }
-
+            await _context.SaveChangesAsync();
             return new ActionResponse<T>
             {
                 WasSuccess = true,
-                Result = row
+                Result = entity
             };
         }
-
-        public virtual async Task<ActionResponse<IEnumerable<T>>> GetAsync()
+        catch (DbUpdateException)
         {
-            return new ActionResponse<IEnumerable<T>>
-            {
-                WasSuccess = true,
-                Result = await _entity.ToListAsync()
-            };
+            return DbUpdateExceptionActionResponse();
         }
-
-        public virtual async Task<ActionResponse<T>> UpdateAsync(T entity)
+        catch (Exception exception)
         {
-            _context.Update(entity);
-            try
-            {
-                await _context.SaveChangesAsync();
-                return new ActionResponse<T>
-                {
-                    WasSuccess = true,
-                    Result = entity
-                };
-            }
-            catch (DbUpdateException)
-            {
-                return DbUpdateExceptionActionResponse();
-            }
-            catch (Exception exception)
-            {
-                return ExceptionActionResponse(exception);
-            }
+            return ExceptionActionResponse(exception);
         }
+    }
 
-        private ActionResponse<T> ExceptionActionResponse(Exception exception)
+    public virtual async Task<ActionResponse<T>> DeleteAsync(int id)
+    {
+        var row = await _entity.FindAsync(id);
+        if (row == null)
         {
             return new ActionResponse<T>
             {
                 WasSuccess = false,
-                Message = exception.Message
+                Message = "ERR001"
             };
         }
 
-        private ActionResponse<T> DbUpdateExceptionActionResponse()
+        _entity.Remove(row);
+        try
+        {
+            await _context.SaveChangesAsync();
+            return new ActionResponse<T>
+            {
+                WasSuccess = true
+            };
+        }
+        catch
         {
             return new ActionResponse<T>
             {
                 WasSuccess = false,
-                Message = "ERR003"
+                Message = "ERR002"
+            };
+        }
+    }
+
+    public virtual async Task<ActionResponse<T>> GetAsync(int id)
+    {
+        var row = await _entity.FindAsync(id);
+        if(row == null)
+        {
+            return new ActionResponse<T>
+            {
+                WasSuccess = false,
+                Message = "ERR001"
             };
         }
 
-        public virtual async Task<ActionResponse<IEnumerable<T>>> GetAsync(PaginationDTO pagination)
+        return new ActionResponse<T>
         {
-            var queryable = _entity.AsQueryable();
+            WasSuccess = true,
+            Result = row
+        };
+    }
 
-            return new ActionResponse<IEnumerable<T>>
+    public virtual async Task<ActionResponse<IEnumerable<T>>> GetAsync()
+    {
+        return new ActionResponse<IEnumerable<T>>
+        {
+            WasSuccess = true,
+            Result = await _entity.ToListAsync()
+        };
+    }
+
+    public virtual async Task<ActionResponse<T>> UpdateAsync(T entity)
+    {
+        _context.Update(entity);
+        try
+        {
+            await _context.SaveChangesAsync();
+            return new ActionResponse<T>
             {
                 WasSuccess = true,
-                Result = await queryable
-                    .Paginate(pagination)
-                    .ToListAsync()
+                Result = entity
             };
         }
-
-        public virtual async Task<ActionResponse<int>> GetTotalRecordsAsync()
+        catch (DbUpdateException)
         {
-            var queryable = _entity.AsQueryable();
-            double count = await queryable.CountAsync();
-            return new ActionResponse<int>
-            {
-                WasSuccess = true,
-                Result = (int)count
-            };
+            return DbUpdateExceptionActionResponse();
         }
+        catch (Exception exception)
+        {
+            return ExceptionActionResponse(exception);
+        }
+    }
+
+    private ActionResponse<T> ExceptionActionResponse(Exception exception)
+    {
+        return new ActionResponse<T>
+        {
+            WasSuccess = false,
+            Message = exception.Message
+        };
+    }
+
+    private ActionResponse<T> DbUpdateExceptionActionResponse()
+    {
+        return new ActionResponse<T>
+        {
+            WasSuccess = false,
+            Message = "ERR003"
+        };
+    }
+
+    public virtual async Task<ActionResponse<IEnumerable<T>>> GetAsync(PaginationDTO pagination)
+    {
+        var queryable = _entity.AsQueryable();
+
+        return new ActionResponse<IEnumerable<T>>
+        {
+            WasSuccess = true,
+            Result = await queryable
+                .Paginate(pagination)
+                .ToListAsync()
+        };
+    }
+
+    public virtual async Task<ActionResponse<int>> GetTotalRecordsAsync()
+    {
+        var queryable = _entity.AsQueryable();
+        double count = await queryable.CountAsync();
+        return new ActionResponse<int>
+        {
+            WasSuccess = true,
+            Result = (int)count
+        };
     }
 }
