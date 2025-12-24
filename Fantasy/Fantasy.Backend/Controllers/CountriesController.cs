@@ -52,6 +52,7 @@ namespace Fantasy.Backend.Controllers
             return NotFound(response.Message);
         }
 
+        [AllowAnonymous]
         [HttpGet("combo")]
         public async Task<IActionResult> GetComboAsync()
         {
