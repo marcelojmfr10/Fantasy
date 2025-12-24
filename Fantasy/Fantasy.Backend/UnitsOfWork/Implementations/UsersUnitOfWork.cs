@@ -19,6 +19,8 @@ public class UsersUnitOfWork : IUsersUnitOfWork
 
     public async Task AddUserToRoleAsync(User user, string roleName) => await _usersRepository.AddUserToRoleAsync(user, roleName);
 
+    public async Task<IdentityResult> ChangePasswordAsync(User user, string currentPassword, string newPassword) => await _usersRepository.ChangePasswordAsync(user, currentPassword, newPassword);
+
     public async Task CheckRoleAsync(string roleName) => await _usersRepository.CheckRoleAsync(roleName);
 
     public async Task<IdentityResult> ConfirmEmailAsync(User user, string token) => await _usersRepository.ConfirmEmailAsync(user, token);
@@ -34,4 +36,6 @@ public class UsersUnitOfWork : IUsersUnitOfWork
     public async Task<SignInResult> LoginAsync(LoginDTO model) => await _usersRepository.LoginAsync(model);
 
     public async Task LogoutAsync() => await _usersRepository.LogoutAsync();
+
+    public async Task<IdentityResult> UpdateUserAsync(User user) => await _usersRepository.UpdateUserAsync(user);
 }

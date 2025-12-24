@@ -34,6 +34,11 @@ public class UsersRepository : IUsersRepository
         await _userManager.AddToRoleAsync(user, roleName);
     }
 
+    public async Task<IdentityResult> ChangePasswordAsync(User user, string currentPassword, string newPassword)
+    {
+        return await _userManager.ChangePasswordAsync(user, currentPassword, newPassword);
+    }
+
     public async Task CheckRoleAsync(string roleName)
     {
         var roleExists = await _roleManager.RoleExistsAsync(roleName);
@@ -87,5 +92,10 @@ public class UsersRepository : IUsersRepository
     public async Task LogoutAsync()
     {
         await _signInManager.SignOutAsync();
+    }
+
+    public async Task<IdentityResult> UpdateUserAsync(User user)
+    {
+        return await _userManager.UpdateAsync(user);
     }
 }
