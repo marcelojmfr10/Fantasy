@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Fantasy.Shared.DTOs;
 
-public class TeamDTO
+public class TournamentDTO
 {
     public int Id { get; set; }
 
@@ -15,6 +15,9 @@ public class TeamDTO
     [Display(Name = "Image", ResourceType = typeof(Literals))]
     public string? Image { get; set; }
 
-    [Display(Name = "Country", ResourceType = typeof(Literals))]
-    public int CountryId { get; set; }
+    [Display(Name = "IsActive", ResourceType = typeof(Literals))]
+    public bool IsActive { get; set; }
+
+    [Display(Name = "Remarks", ResourceType = typeof(Literals))]
+    public string? Remarks { get; set; }
 }
