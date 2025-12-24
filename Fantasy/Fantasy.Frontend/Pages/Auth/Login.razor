@@ -31,6 +31,9 @@
             <MudLink Href="/Register" Underline="Underline.Always" Color="Color.Info" Class="mt-4">
                 @Localizer["NotUserYet"]
             </MudLink>
+            <MudLink OnClick="ShowModalResendConfirmationEmail" Underline="Underline.Always" Color="Color.Warning">
+                @Localizer["ResendAccountActivationEmail"]
+            </MudLink>
         </MudStack>
     </DialogActions>
 </MudDialog>
