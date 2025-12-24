@@ -70,6 +70,9 @@ builder.Services.AddScoped<ITeamsUnitOfWork, TeamsUnitOfWork>();
 builder.Services.AddScoped<ITournamentsRepository, TournamentsRepository>();
 builder.Services.AddScoped<ITournamentsUnitOfWork, TournamentsUnitOfWork>();
 
+builder.Services.AddScoped<ITournamentTeamsRepository, TournamentTeamsRepository>();
+builder.Services.AddScoped<ITournamentTeamsUnitOfWork, TournamentTeamsUnitOfWork>();
+
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 builder.Services.AddScoped<IUsersUnitOfWork, UsersUnitOfWork>();
 
