@@ -58,14 +58,12 @@ else
                         @context.TeamsCount
                     </MudButton>
                 </MudTooltip>
-                @* <MudTooltip Text="@Localizer["Matches"]">
-                    <MudButton Variant="Variant.Filled"
-                               EndIcon="@Icons.Material.Filled.Sports"
-                               Color="Color.Success"
+                <MudTooltip Text="@Localizer["Matches"]">
+                    <MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Sports" Color="Color.Success"
                                OnClick="@(() => MatchesAction(@context))" style="width: 100px;">
                         @context.MatchesCount
                     </MudButton>
-                </MudTooltip> *@
+                </MudTooltip>
                 <MudTooltip Text="@Localizer["Edit"]">
                     <MudButton Variant="Variant.Filled" Color="Color.Warning"
                                OnClick="@(() => ShowModalAsync(context.Id, true))">

@@ -441,4 +441,31 @@
   <data name="ERR012" xml:space="preserve">
     <value>The match Id is not valid</value>
   </data>
+  <data name="AddMatchToTournament" xml:space="preserve">
+    <value>Add match to tournament</value>
+  </data>
+  <data name="Match" xml:space="preserve">
+    <value>Match</value>
+  </data>
+  <data name="Matches" xml:space="preserve">
+    <value>Matches</value>
+  </data>
+  <data name="MatchInactive" xml:space="preserve">
+    <value>Match Inactive</value>
+  </data>
+  <data name="MatchActive" xml:space="preserve">
+    <value>Match Active</value>
+  </data>
+  <data name="SelectDate" xml:space="preserve">
+    <value>Select a Date</value>
+  </data>
+  <data name="SelectTime" xml:space="preserve">
+    <value>Select a time</value>
+  </data>
+  <data name="MustSelectLocalTeam" xml:space="preserve">
+    <value>You must select a local team</value>
+  </data>
+  <data name="MustSelectVisitorTeam" xml:space="preserve">
+    <value>You must select a visitor team</value>
+  </data>
 </root>

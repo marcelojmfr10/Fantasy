@@ -88,6 +88,15 @@ namespace Fantasy.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add match to tournament.
+        /// </summary>
+        public static string AddMatchToTournament {
+            get {
+                return ResourceManager.GetString("AddMatchToTournament", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add team.
         /// </summary>
         public static string AddTeam {
@@ -592,6 +601,42 @@ namespace Fantasy.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Match.
+        /// </summary>
+        public static string Match {
+            get {
+                return ResourceManager.GetString("Match", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Match Active.
+        /// </summary>
+        public static string MatchActive {
+            get {
+                return ResourceManager.GetString("MatchActive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Matches.
+        /// </summary>
+        public static string Matches {
+            get {
+                return ResourceManager.GetString("Matches", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Match Inactive.
+        /// </summary>
+        public static string MatchInactive {
+            get {
+                return ResourceManager.GetString("MatchInactive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The field {0} cannot be longer than {1} characters.
         /// </summary>
         public static string MaxLength {
@@ -606,6 +651,24 @@ namespace Fantasy.Shared.Resources {
         public static string MinLength {
             get {
                 return ResourceManager.GetString("MinLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must select a local team.
+        /// </summary>
+        public static string MustSelectLocalTeam {
+            get {
+                return ResourceManager.GetString("MustSelectLocalTeam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must select a visitor team.
+        /// </summary>
+        public static string MustSelectVisitorTeam {
+            get {
+                return ResourceManager.GetString("MustSelectVisitorTeam", resourceCulture);
             }
         }
         
@@ -880,11 +943,29 @@ namespace Fantasy.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select a Date.
+        /// </summary>
+        public static string SelectDate {
+            get {
+                return ResourceManager.GetString("SelectDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select a file....
         /// </summary>
         public static string SelectFile {
             get {
                 return ResourceManager.GetString("SelectFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select a time.
+        /// </summary>
+        public static string SelectTime {
+            get {
+                return ResourceManager.GetString("SelectTime", resourceCulture);
             }
         }
         
