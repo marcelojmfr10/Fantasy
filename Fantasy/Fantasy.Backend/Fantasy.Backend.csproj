@@ -623,6 +623,7 @@
 
   <ItemGroup>
     <Folder Include="Images\Flags\" />
+    <Folder Include="Images\Tournaments\" />
   </ItemGroup>
 
 </Project>
