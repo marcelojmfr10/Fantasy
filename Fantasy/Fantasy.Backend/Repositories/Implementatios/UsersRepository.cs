@@ -15,18 +15,27 @@ public class UsersRepository : IUsersRepository
     private readonly UserManager<User> _userManager;
     private readonly RoleManager<IdentityRole> _roleManager;
     private readonly SignInManager<User> _signInManager;
+    private readonly IFileStorage _fileStorage;
 
-    public UsersRepository(DataContext context, UserManager<User> userManager, RoleManager<IdentityRole> roleManager, SignInManager<User> signInManager)
+    public UsersRepository(DataContext context, UserManager<User> userManager, RoleManager<IdentityRole> roleManager, SignInManager<User> signInManager, IFileStorage fileStorage)
     {
         _context = context;
         _userManager = userManager;
         _roleManager = roleManager;
         _signInManager = signInManager;
+        _fileStorage = fileStorage;
     }
 
     public async Task<IdentityResult> AddUserAsync(User user, string password)
     {
-        return await _userManager.CreateAsync(user, password);
+        if (!string.IsNullOrEmpty(user.Photo) && !user.Photo.StartsWith("http"))
+        {
+            var imageBase64 = Convert.FromBase64String(user.Photo!);
+            user.Photo = await _fileStorage.SaveFileAsync(imageBase64, ".jpg", "users");
+        }
+
+        var result = await _userManager.CreateAsync(user, password);
+        return result;
     }
 
     public async Task AddUserToRoleAsync(User user, string roleName)
@@ -64,6 +73,47 @@ public class UsersRepository : IUsersRepository
     public async Task<string> GeneratePasswordResetTokenAsync(User user)
     {
         return await _userManager.GeneratePasswordResetTokenAsync(user);
+    }
+
+    public async Task<ActionResponse<IEnumerable<User>>> GetAsync(PaginationDTO pagination)
+    {
+        var queryable = _context.Users
+            .Include(x => x.Country)
+            .AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(pagination.Filter))
+        {
+            queryable = queryable.Where(x => x.FirstName.ToLower().Contains(pagination.Filter.ToLower()) ||
+                                             x.LastName.ToLower().Contains(pagination.Filter.ToLower()));
+        }
+
+        return new ActionResponse<IEnumerable<User>>
+        {
+            WasSuccess = true,
+            Result = await queryable
+                .OrderBy(x => x.FirstName)
+                .ThenBy(x => x.LastName)
+                .Paginate(pagination)
+                .ToListAsync()
+        };
+    }
+
+    public async Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDTO pagination)
+    {
+        var queryable = _context.Users.AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(pagination.Filter))
+        {
+            queryable = queryable.Where(x => x.FirstName.ToLower().Contains(pagination.Filter.ToLower()) ||
+                                             x.LastName.ToLower().Contains(pagination.Filter.ToLower()));
+        }
+
+        double count = await queryable.CountAsync();
+        return new ActionResponse<int>
+        {
+            WasSuccess = true,
+            Result = (int)count
+        };
     }
 
     public async Task<User> GetUserAsync(string email)

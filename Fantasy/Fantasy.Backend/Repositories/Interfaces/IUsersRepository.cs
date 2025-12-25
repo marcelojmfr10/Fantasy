@@ -7,6 +7,8 @@ namespace Fantasy.Backend.Repositories.Interfaces;
 
 public interface IUsersRepository
 {
+    Task<ActionResponse<IEnumerable<User>>> GetAsync(PaginationDTO pagination);
+    Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDTO pagination);
     Task<string> GeneratePasswordResetTokenAsync(User user);
     Task<IdentityResult> ResetPasswordAsync(User user, string token, string password);
     Task<IdentityResult> ChangePasswordAsync(User user, string currentPassword, string newPassword);
