@@ -1,6 +1,5 @@
 ﻿using Fantasy.Shared.Resources;
 using System.ComponentModel.DataAnnotations;
-using System.Text.RegularExpressions;
 
 namespace Fantasy.Shared.Entities;
 

@@ -5,69 +5,68 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Fantasy.Backend.Controllers
+namespace Fantasy.Backend.Controllers;
+
+[ApiController]
+[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+[Route("api/[controller]")]
+public class CountriesController : GenericController<Country>
 {
-    [ApiController]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    [Route("api/[controller]")]
-    public class CountriesController : GenericController<Country>
+    private readonly ICountriesUnitOfWork _countriesUnitOfWork;
+
+    public CountriesController(IGenericUnitOfWork<Country> unitOfWork, ICountriesUnitOfWork countriesUnitOfWork) : base(unitOfWork)
     {
-        private readonly ICountriesUnitOfWork _countriesUnitOfWork;
+        _countriesUnitOfWork = countriesUnitOfWork;
+    }
 
-        public CountriesController(IGenericUnitOfWork<Country> unitOfWork, ICountriesUnitOfWork countriesUnitOfWork) : base(unitOfWork)
+    [HttpGet("paginated")]
+    public override async Task<IActionResult> GetAsync([FromQuery] PaginationDTO pagination)
+    {
+        var response = await _countriesUnitOfWork.GetAsync(pagination);
+        if (response.WasSuccess)
         {
-            _countriesUnitOfWork = countriesUnitOfWork;
+            return Ok(response.Result);
         }
+        return BadRequest();
+    }
 
-        [HttpGet("paginated")]
-        public override async Task<IActionResult> GetAsync([FromQuery] PaginationDTO pagination)
+    [HttpGet]
+    public override async Task<IActionResult> GetAsync()
+    {
+        var response = await _countriesUnitOfWork.GetAsync();
+        if (response.WasSuccess)
         {
-            var response = await _countriesUnitOfWork.GetAsync(pagination);
-            if (response.WasSuccess)
-            {
-                return Ok(response.Result);
-            }
-            return BadRequest();
+            return Ok(response.Result);
         }
+        return BadRequest();
+    }
 
-        [HttpGet]
-        public override async Task<IActionResult> GetAsync()
+    [HttpGet("{id}")]
+    public override async Task<IActionResult> GetAsync(int id)
+    {
+        var response = await _countriesUnitOfWork.GetAsync(id);
+        if (response.WasSuccess)
         {
-            var response = await _countriesUnitOfWork.GetAsync();
-            if (response.WasSuccess)
-            {
-                return Ok(response.Result);
-            }
-            return BadRequest();
+            return Ok(response.Result);
         }
+        return NotFound(response.Message);
+    }
 
-        [HttpGet("{id}")]
-        public override async Task<IActionResult> GetAsync(int id)
-        {
-            var response = await _countriesUnitOfWork.GetAsync(id);
-            if (response.WasSuccess)
-            {
-                return Ok(response.Result);
-            }
-            return NotFound(response.Message);
-        }
+    [AllowAnonymous]
+    [HttpGet("combo")]
+    public async Task<IActionResult> GetComboAsync()
+    {
+        return Ok(await _countriesUnitOfWork.GetComboAsync());
+    }
 
-        [AllowAnonymous]
-        [HttpGet("combo")]
-        public async Task<IActionResult> GetComboAsync()
+    [HttpGet("totalRecordsPaginated")]
+    public async Task<IActionResult> GetTotalRecordsAsync([FromQuery] PaginationDTO pagination)
+    {
+        var response = await _countriesUnitOfWork.GetTotalRecordsAsync(pagination);
+        if (response.WasSuccess)
         {
-            return Ok(await _countriesUnitOfWork.GetComboAsync());
+            return Ok(response.Result);
         }
-
-        [HttpGet("totalRecordsPaginated")]
-        public async Task<IActionResult> GetTotalRecordsAsync([FromQuery] PaginationDTO pagination)
-        {
-            var response = await _countriesUnitOfWork.GetTotalRecordsAsync(pagination);
-            if (response.WasSuccess)
-            {
-                return Ok(response.Result);
-            }
-            return BadRequest();
-        }
+        return BadRequest();
     }
 }
