@@ -358,15 +358,6 @@ namespace Fantasy.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The user group Id is not valid.
-        /// </summary>
-        public static string ERR0015 {
-            get {
-                return ResourceManager.GetString("ERR0015", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Cannot be deleted becasue it has related records.
         /// </summary>
         public static string ERR002 {
@@ -480,6 +471,24 @@ namespace Fantasy.Shared.Resources {
         public static string ERR014 {
             get {
                 return ResourceManager.GetString("ERR014", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The user group Id is not valid.
+        /// </summary>
+        public static string ERR015 {
+            get {
+                return ResourceManager.GetString("ERR015", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The prediction Id is not valid.
+        /// </summary>
+        public static string ERR016 {
+            get {
+                return ResourceManager.GetString("ERR016", resourceCulture);
             }
         }
         

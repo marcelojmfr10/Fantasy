@@ -70,6 +70,9 @@ builder.Services.AddScoped<IGroupsUnitOfWork, GroupsUnitOfWork>();
 builder.Services.AddScoped<IMatchesRepository, MatchesRepository>();
 builder.Services.AddScoped<IMatchesUnitOfWork, MatchesUnitOfWork>();
 
+builder.Services.AddScoped<IPredictionsRepository, PredictionsRepository>();
+builder.Services.AddScoped<IPredictionsUnitOfWork, PredictionsUnitOfWork>();
+
 builder.Services.AddScoped<ITeamsRepository, TeamsRepository>();
 builder.Services.AddScoped<ITeamsUnitOfWork, TeamsUnitOfWork>();
 
@@ -79,11 +82,11 @@ builder.Services.AddScoped<ITournamentsUnitOfWork, TournamentsUnitOfWork>();
 builder.Services.AddScoped<ITournamentTeamsRepository, TournamentTeamsRepository>();
 builder.Services.AddScoped<ITournamentTeamsUnitOfWork, TournamentTeamsUnitOfWork>();
 
-builder.Services.AddScoped<IUsersRepository, UsersRepository>();
-builder.Services.AddScoped<IUsersUnitOfWork, UsersUnitOfWork>();
-
 builder.Services.AddScoped<IUserGroupsRepository, UserGroupsRepository>();
 builder.Services.AddScoped<IUserGroupsUnitOfWork, UserGroupsUnitOfWork>();
+
+builder.Services.AddScoped<IUsersRepository, UsersRepository>();
+builder.Services.AddScoped<IUsersUnitOfWork, UsersUnitOfWork>();
 
 builder.Services.AddScoped<IMailHelper, MailHelper>();
 

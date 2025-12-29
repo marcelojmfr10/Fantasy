@@ -1,7 +1,6 @@
 ﻿using Fantasy.Backend.UnitsOfWork.Interfaces;
 using Fantasy.Shared.DTOs;
 using Fantasy.Shared.Entities;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -11,20 +10,20 @@ namespace Fantasy.Backend.Controllers;
 [ApiController]
 [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 [Route("api/[controller]")]
-public class GroupsController : GenericController<Group>
+public class PredictionsController : GenericController<Prediction>
 {
-    private readonly IGroupsUnitOfWork _groupsUnitOfWork;
+    private readonly IPredictionsUnitOfWork _predictionsUnitOfWork;
 
-    public GroupsController(IGenericUnitOfWork<Group> unitOfWork, IGroupsUnitOfWork groupsUnitOfWork) : base(unitOfWork)
+    public PredictionsController(IGenericUnitOfWork<Prediction> unitOfWork, IPredictionsUnitOfWork predictionsUnitOfWork) : base(unitOfWork)
     {
-        _groupsUnitOfWork = groupsUnitOfWork;
+        _predictionsUnitOfWork = predictionsUnitOfWork;
     }
 
     [HttpGet("paginated")]
     public override async Task<IActionResult> GetAsync(PaginationDTO pagination)
     {
         pagination.Email = User.Identity!.Name;
-        var response = await _groupsUnitOfWork.GetAsync(pagination);
+        var response = await _predictionsUnitOfWork.GetAsync(pagination);
         if (response.WasSuccess)
         {
             return Ok(response.Result);
@@ -35,7 +34,7 @@ public class GroupsController : GenericController<Group>
     [HttpGet("{id}")]
     public override async Task<IActionResult> GetAsync(int id)
     {
-        var response = await _groupsUnitOfWork.GetAsync(id);
+        var response = await _predictionsUnitOfWork.GetAsync(id);
         if (response.WasSuccess)
         {
             return Ok(response.Result);
@@ -47,7 +46,7 @@ public class GroupsController : GenericController<Group>
     public async Task<IActionResult> GetTotalRecordsAsync([FromQuery] PaginationDTO pagination)
     {
         pagination.Email = User.Identity!.Name;
-        var action = await _groupsUnitOfWork.GetTotalRecordsAsync(pagination);
+        var action = await _predictionsUnitOfWork.GetTotalRecordsAsync(pagination);
         if (action.WasSuccess)
         {
             return Ok(action.Result);
@@ -56,10 +55,9 @@ public class GroupsController : GenericController<Group>
     }
 
     [HttpPost("full")]
-    public async Task<IActionResult> PostAsync(GroupDTO groupDTO)
+    public async Task<IActionResult> PostAsync(PredictionDTO predictionDTO)
     {
-        groupDTO.AdminId = User.Identity!.Name!;
-        var action = await _groupsUnitOfWork.AddAsync(groupDTO);
+        var action = await _predictionsUnitOfWork.AddAsync(predictionDTO);
         if (action.WasSuccess)
         {
             return Ok(action.Result);
@@ -68,9 +66,9 @@ public class GroupsController : GenericController<Group>
     }
 
     [HttpPut("full")]
-    public async Task<IActionResult> PutAsync(GroupDTO groupDTO)
+    public async Task<IActionResult> PutAsync(PredictionDTO predictionDTO)
     {
-        var action = await _groupsUnitOfWork.UpdateAsync(groupDTO);
+        var action = await _predictionsUnitOfWork.UpdateAsync(predictionDTO);
         if (action.WasSuccess)
         {
             return Ok(action.Result);

@@ -30,17 +30,6 @@ namespace Fantasy.Backend.Controllers
             return BadRequest();
         }
 
-        [HttpGet("totalRecordsPaginated")]
-        public async Task<IActionResult> GetTotalRecordsAsync([FromQuery] PaginationDTO pagination)
-        {
-            var action = await _userGroupsUnitOfWork.GetTotalRecordsAsync(pagination);
-            if (action.WasSuccess)
-            {
-                return Ok(action.Result);
-            }
-            return BadRequest();
-        }
-
         [HttpGet("{id}")]
         public override async Task<IActionResult> GetAsync(int id)
         {
@@ -50,6 +39,17 @@ namespace Fantasy.Backend.Controllers
                 return Ok(response.Result);
             }
             return NotFound(response.Message);
+        }
+
+        [HttpGet("totalRecordsPaginated")]
+        public async Task<IActionResult> GetTotalRecordsAsync([FromQuery] PaginationDTO pagination)
+        {
+            var action = await _userGroupsUnitOfWork.GetTotalRecordsAsync(pagination);
+            if (action.WasSuccess)
+            {
+                return Ok(action.Result);
+            }
+            return BadRequest();
         }
 
         [HttpPost("full")]
