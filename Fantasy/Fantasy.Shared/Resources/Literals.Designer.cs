@@ -358,6 +358,15 @@ namespace Fantasy.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The user group Id is not valid.
+        /// </summary>
+        public static string ERR0015 {
+            get {
+                return ResourceManager.GetString("ERR0015", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cannot be deleted becasue it has related records.
         /// </summary>
         public static string ERR002 {

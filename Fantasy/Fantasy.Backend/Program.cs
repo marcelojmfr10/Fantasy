@@ -82,6 +82,9 @@ builder.Services.AddScoped<ITournamentTeamsUnitOfWork, TournamentTeamsUnitOfWork
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 builder.Services.AddScoped<IUsersUnitOfWork, UsersUnitOfWork>();
 
+builder.Services.AddScoped<IUserGroupsRepository, UserGroupsRepository>();
+builder.Services.AddScoped<IUserGroupsUnitOfWork, UserGroupsUnitOfWork>();
+
 builder.Services.AddScoped<IMailHelper, MailHelper>();
 
 builder.Services.AddIdentity<User, IdentityRole>(x =>
