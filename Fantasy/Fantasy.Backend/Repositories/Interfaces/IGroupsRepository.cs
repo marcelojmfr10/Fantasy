@@ -6,6 +6,7 @@ namespace Fantasy.Backend.Repositories.Interfaces;
 
 public interface IGroupsRepository
 {
+    Task CheckPredictionsForAllMatchesAsync(int id);
     Task<ActionResponse<Group>> GetAsync(string code);
     Task<ActionResponse<Group>> AddAsync(GroupDTO groupDTO);
     Task<ActionResponse<Group>> UpdateAsync(GroupDTO groupDTO);

@@ -546,4 +546,16 @@
   <data name="InvitationURLCopied" xml:space="preserve">
     <value>Link de invitación al grupo {0} copiado al portapapeles. Compartido con sus amigos para que se unan al grupo</value>
   </data>
+  <data name="Predictions" xml:space="preserve">
+    <value>Predicciones</value>
+  </data>
+  <data name="Positions" xml:space="preserve">
+    <value>Posiciones</value>
+  </data>
+  <data name="Prediction" xml:space="preserve">
+    <value>Predicción</value>
+  </data>
+  <data name="WatchPredictions" xml:space="preserve">
+    <value>Ver predicciones</value>
+  </data>
 </root>
