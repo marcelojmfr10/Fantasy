@@ -50,8 +50,7 @@ else
                     <MudTooltip Text="@Localizer["WatchPredictions"]">
                         <MudButton Variant="Variant.Filled"
                                    Color="Color.Info"
-                                   OnClick="@(() => WatchPredictionsAsync(@context))"
-                                   >
+                                   OnClick="@(() => WatchPredictionsAsync(@context))">
                             <MudIcon Icon="@Icons.Material.Filled.Visibility" />
                         </MudButton>
                     </MudTooltip>
@@ -61,7 +60,8 @@ else
                     <MudTooltip Text="@Localizer["Edit"]">
                         <MudButton Variant="Variant.Filled"
                                    Color="Color.Warning"
-                                   OnClick="@(() => EditPredictionAsync(context.Id))">
+                                   OnClick="@(() => EditPredictionAsync(context.Id))"
+                                   Disabled="@(!userEnabledForGroup)">
                             <MudIcon Icon="@Icons.Material.Filled.Edit" />
                         </MudButton>
                     </MudTooltip>
