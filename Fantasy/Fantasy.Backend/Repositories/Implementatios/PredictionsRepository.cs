@@ -240,109 +240,110 @@ public class PredictionsRepository : GenericRepository<Prediction>, IPredictions
         }
     }
 
-    //public async Task<ActionResponse<IEnumerable<PositionDTO>>> GetPositionsAsync(PaginationDTO pagination)
-    //{
-    //    var queryable = _context.Predictions
-    //        .Where(x => x.GroupId == pagination.Id && x.Points.HasValue)
-    //        .GroupBy(x => x.User)
-    //        .Select(g => new PositionDTO
-    //        {
-    //            User = g.Key,
-    //            Points = g.Sum(x => x.Points ?? 0)
-    //        })
-    //        .OrderByDescending(x => x.Points)
-    //        .AsQueryable();
+    public async Task<ActionResponse<IEnumerable<PositionDTO>>> GetPositionsAsync(PaginationDTO pagination)
+    {
+        var queryable = _context.Predictions
+            .Where(x => x.GroupId == pagination.Id && x.Points.HasValue)
+            .GroupBy(x => x.User)
+            .Select(g => new PositionDTO
+            {
+                User = g.Key,
+                Points = g.Sum(x => x.Points ?? 0)
+            })
+            .OrderByDescending(x => x.Points)
+            .AsQueryable();
 
-    //    if (!string.IsNullOrWhiteSpace(pagination.Filter))
-    //    {
-    //        queryable = queryable.Where(x => x.User.FirstName.ToLower().Contains(pagination.Filter.ToLower()) ||
-    //                                            x.User.LastName.ToLower().Contains(pagination.Filter.ToLower()));
-    //    }
+        if (!string.IsNullOrWhiteSpace(pagination.Filter))
+        {
+            queryable = queryable.Where(x => x.User.FirstName.ToLower().Contains(pagination.Filter.ToLower()) ||
+                                                x.User.LastName.ToLower().Contains(pagination.Filter.ToLower()));
+        }
 
-    //    return new ActionResponse<IEnumerable<PositionDTO>>
-    //    {
-    //        WasSuccess = true,
-    //        Result = await queryable
-    //            .Paginate(pagination)
-    //            .ToListAsync()
-    //    };
-    //}
+        return new ActionResponse<IEnumerable<PositionDTO>>
+        {
+            WasSuccess = true,
+            Result = await queryable
+                .Paginate(pagination)
+                .ToListAsync()
+        };
+    }
 
-    //public async Task<ActionResponse<int>> GetTotalRecordsForPositionsAsync(PaginationDTO pagination)
-    //{
-    //    var queryable = _context.Predictions
-    //        .Where(x => x.GroupId == pagination.Id && x.Points.HasValue)
-    //        .GroupBy(x => x.User)
-    //        .Select(g => new PositionDTO
-    //        {
-    //            User = g.Key,
-    //            Points = g.Sum(x => x.Points ?? 0)
-    //        })
-    //        .OrderByDescending(x => x.Points)
-    //        .AsQueryable();
+    public async Task<ActionResponse<int>> GetTotalRecordsForPositionsAsync(PaginationDTO pagination)
+    {
+        var queryable = _context.Predictions
+            .Where(x => x.GroupId == pagination.Id && x.Points.HasValue)
+            .GroupBy(x => x.User)
+            .Select(g => new PositionDTO
+            {
+                User = g.Key,
+                Points = g.Sum(x => x.Points ?? 0)
+            })
+            .OrderByDescending(x => x.Points)
+            .AsQueryable();
 
-    //    if (!string.IsNullOrWhiteSpace(pagination.Filter))
-    //    {
-    //        queryable = queryable.Where(x => x.User.FirstName.ToLower().Contains(pagination.Filter.ToLower()) ||
-    //                                            x.User.LastName.ToLower().Contains(pagination.Filter.ToLower()));
-    //    }
+        if (!string.IsNullOrWhiteSpace(pagination.Filter))
+        {
+            queryable = queryable.Where(x => x.User.FirstName.ToLower().Contains(pagination.Filter.ToLower()) ||
+                                                x.User.LastName.ToLower().Contains(pagination.Filter.ToLower()));
+        }
 
-    //    double count = await queryable.CountAsync();
-    //    return new ActionResponse<int>
-    //    {
-    //        WasSuccess = true,
-    //        Result = (int)count
-    //    };
-    //}
+        double count = await queryable.CountAsync();
+        return new ActionResponse<int>
+        {
+            WasSuccess = true,
+            Result = (int)count
+        };
+    }
 
-    //public async Task<ActionResponse<IEnumerable<Prediction>>> GetAllPredictionsAsync(PaginationDTO pagination)
-    //{
-    //    var queryable = _context.Predictions
-    //        .Include(x => x.Match)
-    //        .ThenInclude(x => x.Local)
-    //        .Include(x => x.Match)
-    //        .ThenInclude(x => x.Visitor)
-    //        .Include(x => x.User)
-    //        .AsQueryable();
-    //    queryable = queryable.Where(x => x.GroupId == pagination.Id);
-    //    queryable = queryable.Where(x => x.MatchId == pagination.Id2);
+    public async Task<ActionResponse<IEnumerable<Prediction>>> GetAllPredictionsAsync(PaginationDTO pagination)
+    {
+        var queryable = _context.Predictions
+            .Include(x => x.Match)
+            .ThenInclude(x => x.Local)
+            .Include(x => x.Match)
+            .ThenInclude(x => x.Visitor)
+            .Include(x => x.User)
+            .AsQueryable();
 
-    //    if (!string.IsNullOrWhiteSpace(pagination.Filter))
-    //    {
-    //        queryable = queryable.Where(x => x.User.FirstName.ToLower().Contains(pagination.Filter.ToLower()) ||
-    //                                            x.User.LastName.ToLower().Contains(pagination.Filter.ToLower()));
-    //    }
+        queryable = queryable.Where(x => x.GroupId == pagination.Id);
+        queryable = queryable.Where(x => x.MatchId == pagination.Id2);
 
-    //    return new ActionResponse<IEnumerable<Prediction>>
-    //    {
-    //        WasSuccess = true,
-    //        Result = await queryable
-    //            .OrderBy(x => x.User.FirstName)
-    //            .ThenBy(x => x.User.LastName)
-    //            .Paginate(pagination)
-    //            .ToListAsync()
-    //    };
-    //}
+        if (!string.IsNullOrWhiteSpace(pagination.Filter))
+        {
+            queryable = queryable.Where(x => x.User.FirstName.ToLower().Contains(pagination.Filter.ToLower()) ||
+                                                x.User.LastName.ToLower().Contains(pagination.Filter.ToLower()));
+        }
 
-    //public async Task<ActionResponse<int>> GetTotalRecordsAllPredictionsAsync(PaginationDTO pagination)
-    //{
-    //    var queryable = _context.Predictions.AsQueryable();
-    //    queryable = queryable.Where(x => x.GroupId == pagination.Id);
-    //    queryable = queryable.Where(x => x.MatchId == pagination.Id2);
+        return new ActionResponse<IEnumerable<Prediction>>
+        {
+            WasSuccess = true,
+            Result = await queryable
+                .OrderBy(x => x.User.FirstName)
+                .ThenBy(x => x.User.LastName)
+                .Paginate(pagination)
+                .ToListAsync()
+        };
+    }
 
-    //    if (!string.IsNullOrWhiteSpace(pagination.Filter))
-    //    {
-    //        queryable = queryable.Where(x => x.User.FirstName.ToLower().Contains(pagination.Filter.ToLower()) ||
-    //                                            x.User.LastName.ToLower().Contains(pagination.Filter.ToLower()));
-    //    }
+    public async Task<ActionResponse<int>> GetTotalRecordsAllPredictionsAsync(PaginationDTO pagination)
+    {
+        var queryable = _context.Predictions.AsQueryable();
+        queryable = queryable.Where(x => x.GroupId == pagination.Id);
+        queryable = queryable.Where(x => x.MatchId == pagination.Id2);
 
-    //    double count = await queryable.CountAsync();
-    //    return new ActionResponse<int>
-    //    {
-    //        WasSuccess = true,
-    //        Result = (int)count
-    //    };
-    //}
+        if (!string.IsNullOrWhiteSpace(pagination.Filter))
+        {
+            queryable = queryable.Where(x => x.User.FirstName.ToLower().Contains(pagination.Filter.ToLower()) ||
+                                                x.User.LastName.ToLower().Contains(pagination.Filter.ToLower()));
+        }
+
+        double count = await queryable.CountAsync();
+        return new ActionResponse<int>
+        {
+            WasSuccess = true,
+            Result = (int)count
+        };
+    }
 
     public async Task<ActionResponse<IEnumerable<Prediction>>> GetBalanceAsync(PaginationDTO pagination)
     {

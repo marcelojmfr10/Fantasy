@@ -119,9 +119,24 @@ public partial class Predictions
 
     }
 
-    private async Task WatchPredictionAsync(Prediction prediction)
+    private async Task WatchPredictionsAsync(Prediction prediction)
     {
-        //TODO: Pending
+        var options = new DialogOptions()
+        {
+            CloseOnEscapeKey = true,
+            CloseButton = true,
+            MaxWidth = MaxWidth.Medium,
+            FullWidth = true
+        };
+        var parameters = new DialogParameters
+        {
+            { "GroupId", prediction.GroupId },
+            { "MatchId", prediction.MatchId }
+        };
+        var dialog = DialogService.Show<WatchPredictions>($"{Localizer["Watch"]} {Localizer["Predictions"]}", parameters, options);
+
+        await dialog.Result;
+
     }
 
     private bool CanWatch(Prediction prediction)

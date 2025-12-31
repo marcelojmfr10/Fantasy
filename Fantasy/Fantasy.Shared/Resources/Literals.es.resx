@@ -576,4 +576,16 @@
   <data name="CloseMatch" xml:space="preserve">
     <value>Cerrar Partido</value>
   </data>
+  <data name="Watch" xml:space="preserve">
+    <value>Ver</value>
+  </data>
+  <data name="RealScore" xml:space="preserve">
+    <value>Marcador real</value>
+  </data>
+  <data name="PredictedScore" xml:space="preserve">
+    <value>Marcador predecido</value>
+  </data>
+  <data name="PredictionsBalance" xml:space="preserve">
+    <value>Resumen de Predicciones</value>
+  </data>
 </root>

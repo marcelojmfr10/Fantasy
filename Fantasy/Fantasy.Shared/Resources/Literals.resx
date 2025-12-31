@@ -576,4 +576,16 @@
   <data name="CloseMatch" xml:space="preserve">
     <value>Close Match</value>
   </data>
+  <data name="Watch" xml:space="preserve">
+    <value>Watch</value>
+  </data>
+  <data name="RealScore" xml:space="preserve">
+    <value>Real Score</value>
+  </data>
+  <data name="PredictedScore" xml:space="preserve">
+    <value>Predicted Score</value>
+  </data>
+  <data name="PredictionsBalance" xml:space="preserve">
+    <value>Predictions Balance</value>
+  </data>
 </root>

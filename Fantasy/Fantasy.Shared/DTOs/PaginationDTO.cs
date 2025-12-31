@@ -7,4 +7,5 @@ public class PaginationDTO
     public int RecordsNumber { get; set; } = 10;
     public string? Filter { get; set; }
     public string? Email { get; set; }
+    public int Id2 { get; set; }
 }

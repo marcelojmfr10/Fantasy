@@ -1087,6 +1087,15 @@ namespace Fantasy.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Predicted Score.
+        /// </summary>
+        public static string PredictedScore {
+            get {
+                return ResourceManager.GetString("PredictedScore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Prediction.
         /// </summary>
         public static string Prediction {
@@ -1101,6 +1110,24 @@ namespace Fantasy.Shared.Resources {
         public static string Predictions {
             get {
                 return ResourceManager.GetString("Predictions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Predictions Balance.
+        /// </summary>
+        public static string PredictionsBalance {
+            get {
+                return ResourceManager.GetString("PredictionsBalance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Real Score.
+        /// </summary>
+        public static string RealScore {
+            get {
+                return ResourceManager.GetString("RealScore", resourceCulture);
             }
         }
         
@@ -1416,6 +1443,15 @@ namespace Fantasy.Shared.Resources {
         public static string Visitor {
             get {
                 return ResourceManager.GetString("Visitor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Watch.
+        /// </summary>
+        public static string Watch {
+            get {
+                return ResourceManager.GetString("Watch", resourceCulture);
             }
         }
         
