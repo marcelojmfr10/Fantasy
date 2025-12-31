@@ -558,4 +558,22 @@
   <data name="WatchPredictions" xml:space="preserve">
     <value>Ver predicciones</value>
   </data>
+  <data name="CloseMatchConfirmMessage" xml:space="preserve">
+    <value>¿Estás seguro de cerrar el partido {0} vs {1}?</value>
+  </data>
+  <data name="CloseMatchTitle" xml:space="preserve">
+    <value>Cerrar partido</value>
+  </data>
+  <data name="GoalsLocalError" xml:space="preserve">
+    <value>Debes ingresar un valor mayor o igual a cero en goles del local</value>
+  </data>
+  <data name="GoalsVisitorError" xml:space="preserve">
+    <value>Debes ingresar un valor mayor o igual a cero en goles del visitante</value>
+  </data>
+  <data name="ERR018" xml:space="preserve">
+    <value>Este partido ya no admite predicciones</value>
+  </data>
+  <data name="CloseMatch" xml:space="preserve">
+    <value>Cerrar Partido</value>
+  </data>
 </root>

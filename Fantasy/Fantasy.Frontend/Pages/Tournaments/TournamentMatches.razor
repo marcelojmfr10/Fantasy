@@ -63,14 +63,14 @@ else
             <MudTd>@context.Visitor.Name</MudTd>
             <MudTd>
                 <MudStack Row="true">
-                    @* <MudTooltip Text="@Localizer["CloseMatch"]">
+                    <MudTooltip Text="@Localizer["CloseMatch"]">
                         <MudButton Variant="Variant.Filled"
                                    Color="Color.Info"
                                    OnClick="@(() => CloseMatchAsync(context.Id))"
                                    Disabled="@(context.GoalsLocal != null || context.GoalsVisitor != null)">
                             <MudIcon Icon="@Icons.Material.Filled.Close" />
                         </MudButton>
-                    </MudTooltip> *@
+                    </MudTooltip>
                     <MudTooltip Text="@Localizer["Edit"]">
                         <MudButton Variant="Variant.Filled" Color="Color.Warning"
                                    OnClick="@(() => ShowModalAsync(context.Id, true))"

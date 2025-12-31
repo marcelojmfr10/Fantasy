@@ -197,7 +197,9 @@ public class PredictionsRepository : GenericRepository<Prediction>, IPredictions
             };
         }
 
-        if (CanWatch(currentPrediction))
+        var difference = currentPrediction.Match.Date - DateTime.UtcNow;
+        var minutes = difference.TotalMinutes;
+        if (minutes <= 10)
         {
             return new ActionResponse<Prediction>
             {

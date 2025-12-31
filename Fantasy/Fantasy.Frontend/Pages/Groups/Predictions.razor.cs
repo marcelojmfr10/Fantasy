@@ -124,11 +124,19 @@ public partial class Predictions
         //TODO: Pending
     }
 
-    private bool CanWatch(DateTime date)
+    private bool CanWatch(Prediction prediction)
     {
-        var difference = DateTime.Now - date;
-        var minutes = difference.TotalMinutes;
-        return minutes >= 10;
-    }
+        if (prediction.Match.GoalsLocal != null || prediction.Match.GoalsVisitor != null)
+        {
+            return true;
+        }
 
+        var dateMatch = prediction.Match.Date.ToLocalTime();
+        var currentDate = DateTime.Now;
+        var minutesMatch = dateMatch.Subtract(DateTime.MinValue).TotalMinutes;
+        var minutesNow = currentDate.Subtract(DateTime.MinValue).TotalMinutes;
+        var difference = minutesNow - minutesMatch;
+        var canWatch = difference >= -10;
+        return canWatch;
+    }
 }

@@ -192,4 +192,21 @@ public partial class TournamentMatches
         await table.ReloadServerData();
         Snackbar.Add(Localizer["RecordDeletedOk"], Severity.Success);
     }
+
+    private async Task CloseMatchAsync(int id)
+    {
+        var options = new DialogOptions() { CloseOnEscapeKey = true, CloseButton = true };
+        var parameters = new DialogParameters
+        {
+            { "Id", id }
+        };
+        var dialog = DialogService.Show<CloseMatch>(Localizer["CloseMatchTitle"], parameters, options);
+
+        var result = await dialog.Result;
+        if (result!.Canceled)
+        {
+            await LoadAsync();
+            await table.ReloadServerData();
+        }
+    }
 }
