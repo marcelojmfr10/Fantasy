@@ -531,4 +531,19 @@
   <data name="Active" xml:space="preserve">
     <value>Activo</value>
   </data>
+  <data name="ERR017" xml:space="preserve">
+    <value>El código del grupo no es válido</value>
+  </data>
+  <data name="UserAddedToGroupOk" xml:space="preserve">
+    <value>Usuario agregado al grupo. Ya el usuario puede entrar e ingresar sus predicciones</value>
+  </data>
+  <data name="JoinExistingGroup" xml:space="preserve">
+    <value>Unirse a un grupo existente</value>
+  </data>
+  <data name="ConfirmGroupMessage" xml:space="preserve">
+    <value>Para unirse al grupo: {0}, haga click en el botón</value>
+  </data>
+  <data name="InvitationURLCopied" xml:space="preserve">
+    <value>Link de invitación al grupo {0} copiado al portapapeles. Compartido con sus amigos para que se unan al grupo</value>
+  </data>
 </root>

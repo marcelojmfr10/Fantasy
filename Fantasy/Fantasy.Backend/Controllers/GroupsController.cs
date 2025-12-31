@@ -43,6 +43,18 @@ public class GroupsController : GenericController<Group>
         return NotFound(response.Message);
     }
 
+    [HttpGet("code/{code}")]
+    public async Task<IActionResult> GetAsync(string code)
+    {
+        var response = await _groupsUnitOfWork.GetAsync(code);
+        if (response.WasSuccess)
+        {
+            return Ok(response.Result);
+        }
+        return NotFound(response.Message);
+    }
+
+
     [HttpGet("totalRecordsPaginated")]
     public async Task<IActionResult> GetTotalRecordsAsync([FromQuery] PaginationDTO pagination)
     {

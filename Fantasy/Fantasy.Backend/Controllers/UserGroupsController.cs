@@ -41,6 +41,19 @@ namespace Fantasy.Backend.Controllers
             return NotFound(response.Message);
         }
 
+        [HttpPost("join")]
+        public async Task<IActionResult> PostAsync(JoinGroupDTO joinGroupDTO)
+        {
+            joinGroupDTO.UserName = User.Identity!.Name!;
+            var action = await _userGroupsUnitOfWork.JoinAsync(joinGroupDTO);
+            if (action.WasSuccess)
+            {
+                return Ok(action.Result);
+            }
+            return BadRequest(action.Message);
+        }
+
+
         [HttpGet("totalRecordsPaginated")]
         public async Task<IActionResult> GetTotalRecordsAsync([FromQuery] PaginationDTO pagination)
         {
