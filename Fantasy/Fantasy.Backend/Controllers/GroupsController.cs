@@ -20,6 +20,19 @@ public class GroupsController : GenericController<Group>
         _groupsUnitOfWork = groupsUnitOfWork;
     }
 
+    [AllowAnonymous]
+    [HttpGet("all")]
+    public async Task<IActionResult> GetAllAsync()
+    {
+        var response = await _groupsUnitOfWork.GetAllAsync();
+        if (response.WasSuccess)
+        {
+            return Ok(response.Result);
+        }
+        return BadRequest();
+    }
+
+
     [HttpGet("paginated")]
     public override async Task<IActionResult> GetAsync(PaginationDTO pagination)
     {
@@ -32,6 +45,7 @@ public class GroupsController : GenericController<Group>
         return BadRequest();
     }
 
+    [AllowAnonymous]
     [HttpGet("{id}")]
     public override async Task<IActionResult> GetAsync(int id)
     {
@@ -43,6 +57,7 @@ public class GroupsController : GenericController<Group>
         return NotFound(response.Message);
     }
 
+    [AllowAnonymous]
     [HttpGet("CheckPredictionsForAllMatches/{id}")]
     public async Task<IActionResult> CheckPredictionsForAllMatchesAsync(int id)
     {

@@ -6,6 +6,7 @@ namespace Fantasy.Backend.UnitsOfWork.Interfaces;
 
 public interface IGroupsUnitOfWork
 {
+    Task<ActionResponse<IEnumerable<Group>>> GetAllAsync();
     Task CheckPredictionsForAllMatchesAsync(int id);
     Task<ActionResponse<Group>> GetAsync(string code);
     Task<ActionResponse<Group>> AddAsync(GroupDTO groupDTO);

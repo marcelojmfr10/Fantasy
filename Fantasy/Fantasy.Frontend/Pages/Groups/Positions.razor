@@ -7,11 +7,7 @@ else
     <MudTable Items="@positions" @ref="table" ServerData="LoadListAsync" Dense="true" Hover="true" Striped="true" FixedHeader="true" FixedFooter="true"
               Class="mt-4">
         <ToolBarContent>
-            <MudButton Variant="Variant.Outlined"
-                       Class="mr-4"
-                       StartIcon="@Icons.Material.Filled.ArrowBack"
-                       Color="Color.Tertiary"
-                       OnClick="ReturnAction">
+            <MudButton Variant="Variant.Outlined" Class="mr-4" StartIcon="@Icons.Material.Filled.ArrowBack" Color="Color.Tertiary" OnClick="ReturnAction">
                 @Localizer["Return"]
             </MudButton>
             <MudSpacer />
@@ -21,36 +17,35 @@ else
             <MudTh>@Localizer["Image"]</MudTh>
             <MudTh>@Localizer["User"]</MudTh>
             <MudTh>@Localizer["Points"]</MudTh>
-            <MudTh style="width: 170px;">@Localizer["Actions"]</MudTh>
+            @if (!IsAnonymouns)
+            {
+                <MudTh style="width: 170px;">@Localizer["Actions"]</MudTh>
+            }
         </HeaderContent>
         <RowTemplate>
             <MudTd>
                 <MudImage Src="@context.User.PhotoFull" Width="80" Height="80" Style="border-radius: 50%;" />
             </MudTd>
             <MudTd>
-                <MudText Typo="Typo.h4" Align="Align.Center">@context.User.FullName</MudText>
+                <MudText Typo="Typo.h5" Align="Align.Center">@context.User.FullName</MudText>
             </MudTd>
             <MudTd>
-                <MudText Typo="Typo.h3" Align="Align.Center">@context.Points</MudText>
+                <MudText Typo="Typo.h5" Align="Align.Center">@context.Points</MudText>
             </MudTd>
-            <MudTd>
-                <MudButton Variant="Variant.Filled"
-                           EndIcon="@Icons.Material.Filled.Visibility"
-                           Color="Color.Info"
-                           OnClick=@(() => WatchBalanceAsync(@context))>
-                    @Localizer["Watch"] @Localizer["PredictionsBalance"]
-                </MudButton>
-            </MudTd>
-
+            @if (!IsAnonymouns)
+            {
+                <MudTd>
+                    <MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Visibility" Color="Color.Info" OnClick=@(() => WatchBalanceAsync(@context))>
+                        @Localizer["Watch"] @Localizer["PredictionsBalance"]
+                    </MudButton>
+                </MudTd>
+            }
         </RowTemplate>
         <NoRecordsContent>
             <MudText>@Localizer["NoRecords"]</MudText>
         </NoRecordsContent>
         <PagerContent>
-            <MudTablePager RowsPerPageString=@Localizer["RecordsNumber"]
-                           PageSizeOptions="pageSizeOptions"
-                           AllItemsText=@Localizer["All"]
-                           InfoFormat="@infoFormat" />
+            <MudTablePager RowsPerPageString=@Localizer["RecordsNumber"] PageSizeOptions="pageSizeOptions" AllItemsText=@Localizer["All"] InfoFormat="@infoFormat" />
         </PagerContent>
     </MudTable>
 }
