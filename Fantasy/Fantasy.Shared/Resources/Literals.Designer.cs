@@ -727,6 +727,24 @@ namespace Fantasy.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The image is rectangular.
+        /// </summary>
+        public static string ImageIsRectangular {
+            get {
+                return ResourceManager.GetString("ImageIsRectangular", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The image is square.
+        /// </summary>
+        public static string ImageIsSquare {
+            get {
+                return ResourceManager.GetString("ImageIsSquare", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Inactive.
         /// </summary>
         public static string Inactive {
@@ -750,6 +768,15 @@ namespace Fantasy.Shared.Resources {
         public static string IsActive {
             get {
                 return ResourceManager.GetString("IsActive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is Image Square?.
+        /// </summary>
+        public static string IsImageSquare {
+            get {
+                return ResourceManager.GetString("IsImageSquare", resourceCulture);
             }
         }
         
@@ -1204,6 +1231,15 @@ namespace Fantasy.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Rectangular.
+        /// </summary>
+        public static string Rectangular {
+            get {
+                return ResourceManager.GetString("Rectangular", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Register as new user.
         /// </summary>
         public static string Register {
@@ -1335,6 +1371,15 @@ namespace Fantasy.Shared.Resources {
         public static string SendEmailConfirmationMessage {
             get {
                 return ResourceManager.GetString("SendEmailConfirmationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Square.
+        /// </summary>
+        public static string Square {
+            get {
+                return ResourceManager.GetString("Square", resourceCulture);
             }
         }
         

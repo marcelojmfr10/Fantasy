@@ -15,6 +15,10 @@ public class TeamDTO
     [Display(Name = "Image", ResourceType = typeof(Literals))]
     public string? Image { get; set; }
 
+    [Display(Name = "IsImageSquare", ResourceType = typeof(Literals))]
+    public bool IsImageSquare { get; set; }
+
+
     [Display(Name = "Country", ResourceType = typeof(Literals))]
     public int CountryId { get; set; }
 }

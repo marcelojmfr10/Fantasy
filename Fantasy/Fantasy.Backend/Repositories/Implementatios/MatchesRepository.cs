@@ -250,10 +250,10 @@ public class MatchesRepository : GenericRepository<Match>, IMatchesRepository
 
         var matchStatus = GetMatchStatus(match.GoalsLocal!.Value, match.GoalsVisitor!.Value);
         var predictionStatus = GetMatchStatus(prediction.GoalsLocal!.Value, prediction.GoalsVisitor!.Value);
-        if (matchStatus == predictionStatus) points += 5;
-        if (match.GoalsLocal == prediction.GoalsLocal) points += 2;
-        if (match.GoalsVisitor == prediction.GoalsVisitor) points += 2;
-        if (Math.Abs((decimal)match.GoalsLocal! - (decimal)match.GoalsVisitor!) == Math.Abs((decimal)prediction.GoalsLocal! - (decimal)prediction.GoalsVisitor!)) points++;
+        //if (matchStatus == predictionStatus) points += 5;
+        if (match.GoalsLocal == prediction.GoalsLocal && match.GoalsVisitor == prediction.GoalsVisitor) points += 10;
+        //if (match.GoalsVisitor == prediction.GoalsVisitor) points += 2;
+        //if (Math.Abs((decimal)match.GoalsLocal! - (decimal)match.GoalsVisitor!) == Math.Abs((decimal)prediction.GoalsLocal! - (decimal)prediction.GoalsVisitor!)) points++;
         //if (match.DoublePoints) points *= 2;
         return points;
     }

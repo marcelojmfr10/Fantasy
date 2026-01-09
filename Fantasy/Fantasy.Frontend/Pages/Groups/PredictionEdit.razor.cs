@@ -31,7 +31,7 @@ public partial class PredictionEdit
                 var messageError = await responseHttp.GetErrorMessageAsync();
                 Snackbar.Add(messageError, Severity.Error);
             }
-            NavigationManager.NavigateTo($"groups/details/{predictionDTO!.GroupId}");
+            NavigationManager.NavigateTo($"groups/details/{predictionDTO!.GroupId}/false");
         }
         else
         {
@@ -68,7 +68,7 @@ public partial class PredictionEdit
     private void Return()
     {
         predictionForm!.FormPostedSuccessfully = true;
-        NavigationManager.NavigateTo($"groups/details/{predictionDTO!.GroupId}");
+        NavigationManager.NavigateTo($"groups/details/{predictionDTO!.GroupId}/false");
     }
 
 }

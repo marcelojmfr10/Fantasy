@@ -4,18 +4,14 @@
     <DataAnnotationsValidator />
 
     <MudAutocomplete T="Team" Label=@Localizer["Local"] Placeholder=@Localizer["SelectATeam"] SearchFunc="SearchTeam"
-                     Value="selectedLocal" ValueChanged="LocalChanged"
-                     ToStringFunc="@(e=> e==null?null : $"{e.Name}")"
-                     Class="mb-2">
+                     Value="selectedLocal" ValueChanged="LocalChanged" ToStringFunc="@(e=> e==null?null : $"{e.Name}")" Class="mb-2">
         <ItemTemplate Context="itemContext">
             @itemContext.Name
         </ItemTemplate>
     </MudAutocomplete>
 
     <MudAutocomplete T="Team" Label=@Localizer["Visitor"] Placeholder=@Localizer["SelectATeam"] SearchFunc="SearchTeam"
-                     Value="selectedVisitor" ValueChanged="VisitorChanged"
-                     ToStringFunc="@(e=> e==null?null : $"{e.Name}")"
-                     Class="mb-2">
+                     Value="selectedVisitor" ValueChanged="VisitorChanged" ToStringFunc="@(e=> e==null?null : $"{e.Name}")" Class="mb-2">
         <ItemTemplate Context="itemContext">
             @itemContext.Name
         </ItemTemplate>
@@ -34,14 +30,28 @@
         <div class="mb-2" style="margin-right: 10px;">
             @if (selectedLocal.Id != 0)
             {
-                <MudImage Src="@imageUrlLocal" Width="120" Height="80" />
+                @if (selectedLocal.IsImageSquare)
+                {
+                    <MudImage Src="@imageUrlLocal" Width="120" Height="120" />
+                }
+                else
+                {
+                    <MudImage Src="@imageUrlLocal" Width="120" Height="80" />
+                }
             }
         </div>
         <MudText Typo="Typo.h3" Align="Align.Center" Class="mx-2">Vs</MudText>
         <div class="mb-2" style="margin-left: 10px;">
             @if (selectedVisitor.Id != 0)
             {
-                <MudImage Src="@imageUrlVisitor" Width="120" Height="80" />
+                @if (selectedVisitor.IsImageSquare)
+                {
+                    <MudImage Src="@imageUrlVisitor" Width="120" Height="120" />
+                }
+                else
+                {
+                    <MudImage Src="@imageUrlVisitor" Width="120" Height="80" />
+                }
             }
         </div>
     </div>

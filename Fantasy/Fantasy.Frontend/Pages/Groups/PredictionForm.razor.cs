@@ -50,7 +50,7 @@ public partial class PredictionForm
                 var messageError = await responseHttp.GetErrorMessageAsync();
                 Snackbar.Add(messageError, Severity.Error);
             }
-            NavigationManager.NavigateTo($"groups/details/{PredictionDTO!.GroupId}");
+            NavigationManager.NavigateTo($"groups/details/{PredictionDTO!.GroupId}/false");
             return;
         }
         match = responseHttp.Response;
