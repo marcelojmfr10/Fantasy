@@ -24,7 +24,7 @@ public partial class Home
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        await LoadGroupsAsync();
+        //await LoadGroupsAsync();
     }
 
     private async Task LoadGroupsAsync()

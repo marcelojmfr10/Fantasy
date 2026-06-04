@@ -7,7 +7,8 @@
 }
 else
 {
-    <MudTable Items="@Groups" @ref="table" ServerData="LoadListAsync" Dense="true" Hover="true" Striped="true" FixedHeader="true" FixedFooter="true">
+    <MudTable Items="@Groups" @ref="table" ServerData="LoadListAsync" Dense="true" Hover="true" Striped="true" FixedHeader="true" FixedFooter="true" 
+        Breakpoint="Breakpoint.Xs">
         <ToolBarContent>
             <div class="d-flex justify-content-between">
                 <MudText Typo="Typo.h6" Class="me-4"> @Localizer["MyGroups"]</MudText>
@@ -23,46 +24,83 @@ else
         </ToolBarContent>
         <HeaderContent>
             <MudTh>@Localizer["Group"]</MudTh>
-            <MudTh style="width: 80px;">@Localizer["Image"]</MudTh>
+            <MudTh style="width: 80px;">
+                <MudHidden Breakpoint="Breakpoint.Xs">
+                    @Localizer["Image"]
+                </MudHidden>
+            </MudTh>
             <MudTh>@Localizer["Admin"]</MudTh>
-            <MudTh style="width: 80px;">@Localizer["Image"]</MudTh>
+            <MudTh style="width: 80px;">
+                <MudHidden Breakpoint="Breakpoint.Xs">
+                    @Localizer["Image"]
+                </MudHidden>
+            </MudTh>
             <MudTh>@Localizer["Tournament"]</MudTh>
-            <MudTh style="width: 80px;">@Localizer["Image"]</MudTh>
-            <MudTh>@Localizer["Code"]</MudTh>
-            <MudTh style="width: 80px;">@Localizer["IsActive"]</MudTh>
+            <MudTh style="width: 80px;">
+                <MudHidden Breakpoint="Breakpoint.Xs">
+                    @Localizer["Image"]
+                </MudHidden>
+            </MudTh>
+            <MudTh>
+                <MudHidden Breakpoint="Breakpoint.Xs">
+                    @Localizer["Code"]
+                </MudHidden>
+            </MudTh>
+            <MudTh style="width: 80px;">
+                <MudHidden Breakpoint="Breakpoint.Xs">
+                    @Localizer["IsActive"]
+                </MudHidden>
+            </MudTh>
             <MudTh># @Localizer["Members"]</MudTh>
-            <MudTh style="width: 80px;">@Localizer["CopyInvitationURLTitle"]</MudTh>
+            <MudTh style="width: 80px;">
+                <MudHidden Breakpoint="Breakpoint.Xs">@Localizer["CopyInvitationURLTitle"]
+                </MudHidden>
+            </MudTh>
             <MudTh>@Localizer["Actions"]</MudTh>
         </HeaderContent>
         <RowTemplate>
             <MudTd>@context.Name</MudTd>
             <MudTd>
-                <MudImage Src="@context.ImageFull" Width="80" />
+                <MudHidden Breakpoint="Breakpoint.Xs">
+                    <MudImage Src="@context.ImageFull" Width="80" />
+                </MudHidden>
             </MudTd>
             <MudTd>@context.Admin.FullName</MudTd>
             <MudTd>
-                <MudImage Src="@context.Admin.PhotoFull" Width="80" Height="80" Style="border-radius: 50%;" />
+                <MudHidden Breakpoint="Breakpoint.Xs">
+                    <MudImage Src="@context.Admin.PhotoFull" Width="80" Height="80" Style="border-radius: 50%;" />
+                </MudHidden>
             </MudTd>
             <MudTd>@context.Tournament.Name</MudTd>
             <MudTd>
-                <MudImage Src="@context.Tournament.ImageFull" Width="80" />
+                <MudHidden Breakpoint="Breakpoint.Xs">
+                    <MudImage Src="@context.Tournament.ImageFull" Width="80" />
+                </MudHidden>
             </MudTd>
-            <MudTd>@context.Code</MudTd>
             <MudTd>
-                @if (context.IsActive)
-                {
-                    <MudIcon Icon="@Icons.Material.Filled.CheckCircle" Color="Color.Success" />
-                }
-                else
-                {
-                    <MudIcon Icon="@Icons.Material.Filled.Cancel" Color="Color.Error" />
-                }
+                <MudHidden Breakpoint="Breakpoint.Xs">
+                    @context.Code
+                </MudHidden>
+            </MudTd>
+            <MudTd>
+                <MudHidden Breakpoint="Breakpoint.Xs">
+                    @if (context.IsActive)
+                    {
+                        <MudIcon Icon="@Icons.Material.Filled.CheckCircle" Color="Color.Success" />
+                    }
+                    else
+                    {
+                        <MudIcon Icon="@Icons.Material.Filled.Cancel" Color="Color.Error" />
+                    }
+                </MudHidden>
             </MudTd>
             <MudTd>@context.MembersCount</MudTd>
             <MudTd>
-                <MudButton Variant="Variant.Filled" Color="Color.Secondary" OnClick="@(() => CopyInvitationAsync(@context))" Disabled="@(!context.IsActive)">
-                    <MudIcon Icon="@Icons.Material.Filled.ContentCopy" />
-                </MudButton>
+                <MudHidden Breakpoint="Breakpoint.Xs">
+                    <MudButton Variant="Variant.Filled" Color="Color.Secondary" OnClick="@(() => CopyInvitationAsync(@context))" Disabled="@(!context.IsActive)">
+                        <MudIcon Icon="@Icons.Material.Filled.ContentCopy" />
+                    </MudButton>
+                </MudHidden>
             </MudTd>
             <MudTd>
                 <MudStack Spacing="2">

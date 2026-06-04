@@ -13,6 +13,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 using System.Text.Json.Serialization;
+using Microsoft.Extensions.Azure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -54,7 +55,7 @@ builder.Services.AddSwaggerGen(c =>
         });
 });
 
-builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer("name=LocalConnection"));
+builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer("name=DatabaseConnection"));
 builder.Services.AddTransient<SeedDb>();
 builder.Services.AddScoped<IFileStorage, FileStorage>();
 
@@ -95,12 +96,12 @@ builder.Services.AddIdentity<User, IdentityRole>(x =>
     x.Tokens.AuthenticatorTokenProvider = TokenOptions.DefaultAuthenticatorProvider;
     x.SignIn.RequireConfirmedEmail = true;
     x.User.RequireUniqueEmail = true;
-    x.Password.RequireDigit = false;
+    x.Password.RequireDigit = true;
     x.Password.RequiredUniqueChars = 0;
-    x.Password.RequireLowercase = false;
-    x.Password.RequireNonAlphanumeric = false;
-    x.Password.RequireUppercase = false;
-    x.Password.RequiredLength = 6;
+    x.Password.RequireLowercase = true;
+    x.Password.RequireNonAlphanumeric = true;
+    x.Password.RequireUppercase = true;
+    x.Password.RequiredLength = 8;
     x.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
     x.Lockout.MaxFailedAccessAttempts = 3;
     x.Lockout.AllowedForNewUsers = true;
@@ -118,9 +119,28 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["jwtKey"]!)),
         ClockSkew = TimeSpan.Zero
     });
+builder.Services.AddAzureClients(clientBuilder =>
+{
+    clientBuilder.AddBlobServiceClient(builder.Configuration["ConnectionStrings:AzureStorage:blobServiceUri"]!).WithName("ConnectionStrings:AzureStorage");
+    clientBuilder.AddQueueServiceClient(builder.Configuration["ConnectionStrings:AzureStorage:queueServiceUri"]!).WithName("ConnectionStrings:AzureStorage");
+    clientBuilder.AddTableServiceClient(builder.Configuration["ConnectionStrings:AzureStorage:tableServiceUri"]!).WithName("ConnectionStrings:AzureStorage");
+});
+
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy("AllowFrontend",
+//         policy =>
+//         {
+//             policy
+//                 .WithOrigins("https://fantasyfrontend-f5e5bqh6bwb7bscx.centralus-01.azurewebsites.net")
+//                 .AllowAnyMethod()
+//                 .AllowAnyHeader()
+//                 .AllowCredentials();
+//         });
+//});
 
 var app = builder.Build();
-SeedData(app);
+//SeedData(app);
 
 void SeedData(WebApplication app)
 {
@@ -138,8 +158,14 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors(x => x.AllowAnyMethod().AllowAnyHeader().SetIsOriginAllowed(origin => true).AllowCredentials());
+// 2. Usar CORS ANTES de los endpoints y la autorización
+//app.UseCors("AllowFrontend");   // <-- Importante: antes de UseAuthorization y UseEndpoints
 
 app.UseHttpsRedirection();
+
+//app.UseCors("AllowFrontend");
+
+//app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 

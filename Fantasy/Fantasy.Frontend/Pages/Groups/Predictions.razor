@@ -5,7 +5,7 @@
 else
 {
     <MudTable Items="@predictions" @ref="table" ServerData="LoadListAsync" Dense="true" Hover="true" Striped="true" FixedHeader="true"
-              FixedFooter="true" Class="mt-4">
+              FixedFooter="true" Class="mt-4" Breakpoint="Breakpoint.Xs">
         <ToolBarContent>
             <MudButton Variant="Variant.Outlined" Class="mr-4" StartIcon="@Icons.Material.Filled.ArrowBack" Color="Color.Tertiary"
                        OnClick="ReturnAction">
@@ -17,10 +17,13 @@ else
         <HeaderContent>
             <MudTh>@Localizer["Date"]</MudTh>
             <MudTh>@Localizer["Local"]</MudTh>
-            <MudTh>@Localizer["Image"]</MudTh>
+
+            <MudTh>
+                <MudHidden Breakpoint="Breakpoint.Xs">@Localizer["Image"]</MudHidden>
+            </MudTh>
             <MudTh>@Localizer["GoalsLocal"]</MudTh>
             <MudTh>@Localizer["GoalsVisitor"]</MudTh>
-            <MudTh>@Localizer["Image"]</MudTh>
+            <MudTh><MudHidden Breakpoint="Breakpoint.Xs">@Localizer["Image"]</MudHidden></MudTh>
             <MudTh>@Localizer["Visitor"]</MudTh>
             <MudTh>@Localizer["Points"]</MudTh>
             <MudTh>@Localizer["Actions"]</MudTh>
@@ -29,6 +32,7 @@ else
             <MudTd>@context.Match.DateLocal</MudTd>
             <MudTd>@context.Match.Local.Name</MudTd>
             <MudTd style="text-align:center; vertical-align:middle;">
+                <MudHidden Breakpoint="Breakpoint.Xs">
                 @if (context.Match.Local.IsImageSquare)
                 {
                     <MudImage Src="@context.Match.Local.ImageFull" Width="60" Height="60" />
@@ -37,6 +41,7 @@ else
                 {
                     <MudImage Src="@context.Match.Local.ImageFull" Width="90" Height="60" />
                 }
+                </MudHidden>
             </MudTd>
             <MudTd>
                 <MudText Typo="Typo.h3" Align="Align.Center">@context.GoalsLocal</MudText>
@@ -45,6 +50,7 @@ else
                 <MudText Typo="Typo.h3" Align="Align.Center">@context.GoalsVisitor</MudText>
             </MudTd>
             <MudTd style="text-align:center; vertical-align:middle;">
+                <MudHidden Breakpoint="Breakpoint.Xs">
                 @if (context.Match.Visitor.IsImageSquare)
                 {
                     <MudImage Src="@context.Match.Visitor.ImageFull" Width="60" Height="60" />
@@ -53,6 +59,7 @@ else
                 {
                     <MudImage Src="@context.Match.Visitor.ImageFull" Width="90" Height="60" />
                 }
+                </MudHidden>
             </MudTd>
             <MudTd>@context.Match.Visitor.Name</MudTd>
             <MudTd>

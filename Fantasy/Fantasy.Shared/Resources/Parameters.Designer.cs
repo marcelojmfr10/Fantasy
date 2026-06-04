@@ -61,7 +61,7 @@ namespace Fantasy.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://localhost:7036.
+        ///   Looks up a localized string similar to https://mundialfrontend-c4e5h4h9bygxf6fz.centralus-01.azurewebsites.net.
         /// </summary>
         public static string URLFront {
             get {
